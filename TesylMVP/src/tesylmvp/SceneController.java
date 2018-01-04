@@ -5,12 +5,10 @@
  */
 package tesylmvp;
 
-import LaunchScene.LaunchModel;
-
 /**
  *
  * @author Kolbe
  */
-public class SceneContoler {
+public class SceneController {
     
 }

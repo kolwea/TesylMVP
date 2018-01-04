@@ -5,15 +5,23 @@
  */
 package LaunchScene;
 
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+
 /**
  *
  * @author Kolbe
  */
 public class LaunchModel {
-    private LaunchView view;
-    private LaunchController controller;
+    private final LaunchView view;
+    private final LaunchController controller;
     
     public LaunchModel(){
-        
+        view = new LaunchView(this);
+        controller = new LaunchController(this);
+    }
+    
+    public BorderPane getRoot(){
+        return view.root;
     }
 }

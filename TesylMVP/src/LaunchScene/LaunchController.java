@@ -18,7 +18,7 @@ public class LaunchController {
     private Button start;
     private LaunchModel model;
 
-    protected void Controller(LaunchModel model) {
+    protected LaunchController(LaunchModel model) {
         this.model = model;
         initialize();
     }
@@ -28,7 +28,7 @@ public class LaunchController {
         start.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+//                System.out.println("Hello World!");
             }
         });
     }
