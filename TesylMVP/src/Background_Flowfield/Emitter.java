@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Background_Pop;
+package Background_Flowfield;
 
 import Tools.OpenSimplexNoise;
 import Tools.Vector;
@@ -21,17 +21,16 @@ import javafx.scene.shape.Shape;
  */
 public class Emitter {
 
-    double radius = 30.0;
     Color color = Color.DARKSLATEBLUE;
     Ellipse body;
     Line cord;
-    double radiusX = 20.0, radiusY = 10.0;
-    BackgroundPop parent;
+    double radiusX = 16.0, radiusY = 8.0;
+    BackgroundFlowfield parent;
     OpenSimplexNoise noise;
     Particle child;
     Vector pos;
 
-    protected Emitter(BackgroundPop par) {
+    protected Emitter(BackgroundFlowfield par) {
         parent = par;
         noise = new OpenSimplexNoise();
         setupBody();

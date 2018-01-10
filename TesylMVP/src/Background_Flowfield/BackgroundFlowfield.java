@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Background_Pop;
+package Background_Flowfield;
 
 import Tools.Vector;
 import java.awt.Dimension;
@@ -20,8 +20,8 @@ import javafx.util.Duration;
  *
  * @author Kolbe
  */
-public class BackgroundPop {
-     double SCALE = 80.0;
+public class BackgroundFlowfield {
+     double SCALE = 50.0;
     private ArrayList<Emitter> emitters;
     private double count;
     
@@ -30,7 +30,7 @@ public class BackgroundPop {
     protected Timeline timeline;
     protected Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
     
-    public BackgroundPop(){
+    public BackgroundFlowfield(){
         setupPane();
         setupTimeline();
         setupEmitters();
@@ -73,7 +73,7 @@ public class BackgroundPop {
     
     private void update(){
         for(Emitter test : emitters){
-            count+=0.000001;
+            count+=0.000003;
             test.updateParticle(count);
         }
     }

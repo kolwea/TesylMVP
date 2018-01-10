@@ -5,7 +5,7 @@
  */
 package tesylmvp;
 
-import Background_Pop.BackgroundPop;
+import Background_Flowfield.BackgroundFlowfield;
 import LaunchScene.LaunchModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -23,9 +23,9 @@ public class TesylMVP extends Application {
 //        LaunchModel launch = new LaunchModel();
 //        Pane root = launch.getRoot();
         
-        BackgroundPop testPop = new BackgroundPop();
+        BackgroundFlowfield testPop = new BackgroundFlowfield();
         Pane root = testPop.getRoot();
-        Scene scene = new Scene(root, 1000 ,1000);
+        Scene scene = new Scene(root, 800 ,600);
         
         primaryStage.setTitle("Tesyl");
         primaryStage.setScene(scene);
