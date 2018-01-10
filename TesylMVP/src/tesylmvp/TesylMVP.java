@@ -5,15 +5,11 @@
  */
 package tesylmvp;
 
+import Background_Pop.BackgroundPop;
 import LaunchScene.LaunchModel;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -24,9 +20,12 @@ public class TesylMVP extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        LaunchModel launch = new LaunchModel();
-        BorderPane root = launch.getRoot();
-        Scene scene = new Scene(root, 700 ,500);
+//        LaunchModel launch = new LaunchModel();
+//        Pane root = launch.getRoot();
+        
+        BackgroundPop testPop = new BackgroundPop();
+        Pane root = testPop.getRoot();
+        Scene scene = new Scene(root, 1000 ,1000);
         
         primaryStage.setTitle("Tesyl");
         primaryStage.setScene(scene);

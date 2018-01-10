@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 
 /**
  *
@@ -25,18 +26,16 @@ public class Functions {
     public static double distance(double x1, double y1, double x2, double y2) {
         double a = Math.pow((x2 - x1), 2);
         double b = Math.pow((y2 - y1), 2);
-        
-        return Math.sqrt(a+b);
+
+        return Math.sqrt(a + b);
     }
-    
-        //Helper Functions//////////////////////////////////////////////////////////
-    protected void connect(Pane pane, Circle one, Circle two) {
+
+    //Helper Functions//////////////////////////////////////////////////////////
+    public static Line connect(Shape one, Shape two) {
         Node n1 = one, n2 = two;
-        if (pane == null) {
-            System.out.println("Tis null");
-        } else {
-            Pane parent = pane;
-            Line line = new Line();
+        Line line = null;
+        if(one != null && two != null){
+            line = new Line();
             line.setStrokeWidth(1);
             line.startXProperty().bind(Bindings.createDoubleBinding(() -> {
                 Bounds b = n1.getBoundsInParent();
@@ -54,10 +53,12 @@ public class Functions {
                 Bounds b = n2.getBoundsInParent();
                 return b.getMinY() + b.getHeight() / 2;
             }, n2.boundsInParentProperty()));
-            line.strokeWidthProperty().bind(one.radiusProperty().add(two.radiusProperty()).divide(10));
-            parent.getChildren().add(line);
-            n1.toFront();
-            n2.toFront();
         }
+        return line;
+    }
+
+    public static double map(double value, double inMin, double inMax, double outMin, double outMax) {
+        double done = outMin + ((outMax - outMin) / (inMax - inMin)) * (value - inMin);
+        return done;
     }
 }
