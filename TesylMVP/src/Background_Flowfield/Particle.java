@@ -36,7 +36,9 @@ public class Particle {
     
     private void setupBody(){
         body = new Ellipse();
-        body.setFill(Color.BLACK);
+        body.setFill(Color.web("#292F36",0.2));
+        body.setStroke(Color.web("#000000"));
+        body.setStrokeWidth(1.0);
         body.setRadiusX(parent.radiusX);
         body.setRadiusY(parent.radiusY);        
     }

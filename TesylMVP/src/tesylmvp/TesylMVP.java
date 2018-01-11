@@ -20,11 +20,11 @@ public class TesylMVP extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-//        LaunchModel launch = new LaunchModel();
-//        Pane root = launch.getRoot();
+        LaunchModel launch = new LaunchModel();
+        Pane root = launch.getRoot();
         
-        BackgroundFlowfield testPop = new BackgroundFlowfield();
-        Pane root = testPop.getRoot();
+//        BackgroundFlowfield testPop = new BackgroundFlowfield();
+//        Pane root = testPop.getRoot();
         Scene scene = new Scene(root, 800 ,600);
         
         primaryStage.setTitle("Tesyl");
