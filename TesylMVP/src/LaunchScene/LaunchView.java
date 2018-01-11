@@ -8,7 +8,6 @@ package LaunchScene;
 import Background_Flowfield.BackgroundFlowfield;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -26,7 +25,7 @@ public class LaunchView {
     private HBox centerH;
     private VBox centerV;
 
-    private Pane titleCard;
+    private BorderPane titleCard;
     private Text title;
     private LaunchModel model;
 
@@ -43,11 +42,26 @@ public class LaunchView {
 //        titleCard = new Pane();
 //        titleCard.setStyle("-fx-background-color: #FBFEF9;");
         setupBackground();
+        setupTitle();
     }
 
     private void setupBackground() {
         BackgroundFlowfield flowfield = new BackgroundFlowfield();
         root.getChildren().add(flowfield.getRoot());
         flowfield.getRoot().toFront();
+    }
+    
+    private void setupTitle(){
+        titleCard = new BorderPane();
+        titleCard.setStyle("-fx-background-color: #f3f3f3;"
+                + "-fx-border-color: black;");
+        titleCard.setMinSize(MIN_WIDTH/3,MIN_HEIGHT/3);
+        titleCard.setMaxSize(MIN_WIDTH/1.5, MIN_HEIGHT/1.5);
+        titleCard.setPrefSize(MIN_WIDTH-200, MIN_HEIGHT-400);
+        root.setCenter(titleCard);
+        
+        Text title = new Text("Tesyl");
+        title.setStyle("-fx-font-family:'Shrikhand'; -fx-font-size: 80;");
+        titleCard.setTop(title);
     }
 }
