@@ -24,4 +24,5 @@ public class LaunchModel {
     public BorderPane getRoot(){
         return view.root;
     }
+    
 }

@@ -30,6 +30,16 @@ public class Particle {
         body.setCenterY(pos.y);
     }
     
+    protected void updateColor(double val){
+        int color = (int) Tools.Functions.map(val, 0, 1, 150, 206);
+        color = Math.abs(color%255);
+        body.setFill(Color.rgb(35, color, 107));
+    }
+    
+    protected Vector getPosition(){
+        return new Vector(body.getCenterX(),body.getCenterY());
+    }
+    
     protected Ellipse getShape(){
         return this.body;
     }
@@ -42,4 +52,6 @@ public class Particle {
         body.setRadiusX(parent.radiusX);
         body.setRadiusY(parent.radiusY);        
     }
+    
+    
 }

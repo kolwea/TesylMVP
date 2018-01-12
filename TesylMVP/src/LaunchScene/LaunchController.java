@@ -5,8 +5,6 @@
  */
 package LaunchScene;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 /**
@@ -24,12 +22,6 @@ public class LaunchController {
     }
 
     private void initialize() {
-        start = new Button();
-        start.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-//                System.out.println("Hello World!");
-            }
-        });
+
     }
 }

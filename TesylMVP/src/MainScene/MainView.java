@@ -5,10 +5,23 @@
  */
 package MainScene;
 
+import javafx.scene.layout.BorderPane;
+
 /**
  *
  * @author Kolbe
  */
 public class MainView {
     
+    private BorderPane root;
+    private MainModel model;
+    
+    public MainView(MainModel model){
+        this.model = model;
+    }
+    
+    private void setupPane(){
+        this.root = new BorderPane();
+        
+    }
 }
