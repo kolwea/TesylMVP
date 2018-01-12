@@ -5,12 +5,10 @@
  */
 package tesylmvp;
 
+import LaunchScene.LaunchModel;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -21,22 +19,15 @@ public class TesylMVP extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+        LaunchModel launch = new LaunchModel();
+        Pane root = launch.getRoot();
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+//        BackgroundFlowfield testPop = new BackgroundFlowfield();
+//        Pane root = testPop.getRoot();
+        Scene scene = new Scene(root, 800 ,600);
+        scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Shrikhand");
         
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Tesyl");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
