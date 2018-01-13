@@ -5,7 +5,7 @@
  */
 package tesylmvp;
 
-import LaunchScene.LaunchModel;
+import Background_Flowfieldv2.FlowField;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -19,8 +19,9 @@ public class TesylMVP extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        LaunchModel launch = new LaunchModel();
-        Pane root = launch.getRoot();
+//        LaunchModel launch = new LaunchModel();
+        FlowField field = new FlowField();
+        Pane root = field.getRoot();
         
 //        BackgroundFlowfield testPop = new BackgroundFlowfield();
 //        Pane root = testPop.getRoot();

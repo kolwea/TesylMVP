@@ -26,10 +26,12 @@ public class BackgroundFlowfield {
     private Emitter[][] emitters;
     private double count;
     int rows, cols;
+    int currRow, currCol;
     double SAFE_PADDING = 300;
-    boolean SHOW_EMITTER = true,
+    boolean SHOW_EMITTER = false,
             CONNECT_EMITTERS = false,
-            SHOW_LINES = false;
+            SHOW_LINES = false,
+            ADD_SHAPES = true;
 
     protected Pane root;
     protected KeyFrame keyframe;
@@ -38,6 +40,7 @@ public class BackgroundFlowfield {
     protected Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
     int mode;
     double SCALEX = 160, SCALEY = 100;
+    boolean addlines;
 
     public BackgroundFlowfield() {
         cols = (int) (screensize.width / SCALEX);
@@ -48,8 +51,11 @@ public class BackgroundFlowfield {
         setupTimeline();
         setupEmitters();
         setupConnections();
-        mode = 0;
-        FieldController test = new FieldController(this);
+        mode = 5;
+        currRow = 0;
+        currCol = 0;
+        addlines = false;
+//        FieldController test = new FieldController(this);
     }
 
     public Pane getRoot() {
@@ -68,9 +74,9 @@ public class BackgroundFlowfield {
                 TR = new Vector(screensize.getWidth(), 0),
                 BL = new Vector(0, screensize.getHeight()),
                 BR = new Vector(screensize.getWidth(), screensize.getHeight());
-        
+
         ArrayList<Emitter> done = new ArrayList();
-        
+
         for (int i = 0; i < cols; i++) {
             for (int k = 0; k < rows; k++) {
                 Emitter curr = emitters[i][k];
@@ -95,7 +101,7 @@ public class BackgroundFlowfield {
     }
 
     private void setupTimeline() {
-        keyframe = new KeyFrame(Duration.millis(1), (ActionEvent event) -> {
+        keyframe = new KeyFrame(Duration.millis(10), (ActionEvent event) -> {
             this.update();
         });
         timeline = new Timeline(keyframe);
@@ -123,17 +129,19 @@ public class BackgroundFlowfield {
 
     private void setupConnections() {
         cells = new ArrayList();
-        for (int i = 0; i < cols - 1; i++) {
-            for (int k = 0; k < rows - 1; k++) {
-                Emitter first = emitters[i][k];
-                Emitter second = emitters[i + 1][k];
-                Emitter third = emitters[i][k + 1];
-                Strip hold = new Strip(first.child, second.child, third.child);
-                cells.add(hold);
-                root.getChildren().add(hold.getBody());
-                first.getShape().toFront();
-                second.getShape().toFront();
-                third.getShape().toFront();
+        if (ADD_SHAPES == true) {
+            for (int i = 0; i < cols - 1; i++) {
+                for (int k = 0; k < rows - 1; k++) {
+                    Emitter first = emitters[i][k];
+                    Emitter second = emitters[i + 1][k];
+                    Emitter third = emitters[i][k + 1];
+                    Strip hold = new Strip(first.child, second.child, third.child);
+                    cells.add(hold);
+                    root.getChildren().add(hold.getBody());
+                    first.getShape().toFront();
+                    second.getShape().toFront();
+                    third.getShape().toFront();
+                }
             }
         }
         if (SHOW_LINES == true) {
@@ -168,23 +176,33 @@ public class BackgroundFlowfield {
         }
     }
 
-    private void setupUpperShape() {
-        if (CONNECT_EMITTERS == true) {
-            for (int i = 0; i < cols - 1; i++) {
-                for (int k = 0; k < rows - 1; k++) {
-                    Emitter first = emitters[i][k];
-                    Emitter second = emitters[i + 1][k];
-                    Emitter third = emitters[i][k + 1];
+    private void addLines() {
+        if (addlines == true) {
+            if (currRow < rows - 1) {
+                if ((int) count * 10 % 10 == 0) {
+//                    Emitter first = emitters[currCol][currRow];
+//                    Emitter second = emitters[currCol + 1][currRow];
+//                    Emitter third = emitters[currCol][currRow + 1];
+//                    first.connect(second);
+//                    second.connect(third);
+//                    third.connect(first);
+//                    first.getShape().toFront();
+//                    second.getShape().toFront();
+//                    third.getShape().toFront();
+                    currCol++;
+                    if (currCol > cols - 1) {
+                        currRow++;
+                        currCol = 0;
+                    }
+                    System.out.println(currCol + "  " + currRow);
 
-                    first.connect(second);
-                    second.connect(third);
-                    third.connect(first);
-                    first.getShape().toFront();
-                    second.getShape().toFront();
-                    third.getShape().toFront();
                 }
             }
         }
+    }
+
+    public void setLines() {
+        addlines = true;
     }
 
     private void update() {
@@ -192,11 +210,12 @@ public class BackgroundFlowfield {
             for (int k = 0; k < rows; k++) {
                 Emitter curr = emitters[i][k];
                 curr.updateParticle(count);
-                count += 0.0000005;
+                count += 0.000005;
             }
         }
         for (Strip curr : cells) {
             curr.update();
         }
+        addLines();
     }
 }
