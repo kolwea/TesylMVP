@@ -69,6 +69,7 @@ public class LaunchView {
             @Override
             public void handle(ActionEvent event) {
                 background.changeStyle();
+                background.setLines();
             }
         });
         titleCard.setBottom(changeMode);

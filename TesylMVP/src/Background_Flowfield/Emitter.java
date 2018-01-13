@@ -20,9 +20,9 @@ import javafx.scene.shape.Shape;
  * @author Kolbe
  */
 public class Emitter {
-    
-    double MINMAPVAL = 10.0,
-            MAXMAPVAL = 50.0,
+
+    double MINMAPVAL = -30.0,
+            MAXMAPVAL = 30.0,
             NOISE_MAGNITUDE = 1;
 
     Color color = Color.DARKSLATEBLUE;
@@ -50,9 +50,9 @@ public class Emitter {
     protected Ellipse getShape() {
         return this.body;
     }
-    
-    protected Vector getPosition(){
-        return new Vector(body.getCenterX(),body.getCenterY());
+
+    protected Vector getPosition() {
+        return new Vector(body.getCenterX(), body.getCenterY());
     }
 
     private void setupBody() {
@@ -94,7 +94,7 @@ public class Emitter {
             }, n2.boundsInParentProperty()));
         }
         cord = line;
-        cord.setStrokeWidth(2.0);
+        cord.setStrokeWidth(3.0);
         cord.setStroke(Color.web("#000004"));
         cord.setFill(Color.web("#23CE6B", 0.5));
         parent.root.getChildren().add(cord);
@@ -124,9 +124,8 @@ public class Emitter {
                 return b.getMinY() + b.getHeight() / 2;
             }, n2.boundsInParentProperty()));
         }
-        cord = line;
-        cord.setStrokeWidth(2.0);
-        parent.root.getChildren().add(cord);
+        line.setStrokeWidth(2.0);
+        parent.root.getChildren().add(line);
     }
 
     protected void connect(Emitter fam) {
@@ -160,14 +159,16 @@ public class Emitter {
     protected void updateParticle(double z) {
         double x = body.getCenterX() + 10;
         double y = body.getCenterY() - 10;
-        double valuey = noise.eval(y / parent.SCALEY / NOISE_MAGNITUDE, z);
-        double valuex = noise.eval(x / parent.SCALEX / NOISE_MAGNITUDE, z);
+        double valuey = noise.eval(y / NOISE_MAGNITUDE, z);
+        double valuex = noise.eval(x / NOISE_MAGNITUDE, z);
+        double valueB = noise.eval(x / NOISE_MAGNITUDE, y / NOISE_MAGNITUDE, z);
         double newy = Tools.Functions.map(valuey, 0, 1, MINMAPVAL, MAXMAPVAL);
         double newx = Tools.Functions.map(valuex, 0, 1, MINMAPVAL, MAXMAPVAL);
-
+        double newB = Tools.Functions.map(valueB, 0, 1, MINMAPVAL, MAXMAPVAL);
+        
         double newcolor = noise.eval(x, y, z);
         child.updateColor(newcolor);
-      
+
         Vector pos;
         switch (parent.mode) {
             case 0:
@@ -191,27 +192,11 @@ public class Emitter {
                 child.setPosition(pos);
                 break;
             case 5:
-                pos = new Vector(x - newx, y - newy);
-                child.setPosition(pos);
-                break;
-            case 6:
-                pos = new Vector(x - newy, y - newy);
-                child.setPosition(pos);
-                break;
-            case 7:
-                pos = new Vector(x - newx, y - newx);
-                child.setPosition(pos);
-                break;
-            case 8:
-                pos = new Vector(x, y - newy);
-                child.setPosition(pos);
-                break;
-            case 9:
-                pos = new Vector(x - newx, y);
+                pos = new Vector(x + newB, y + newB);
                 child.setPosition(pos);
                 break;
             default:
-                pos = new Vector(x, y);
+                pos = new Vector(x , y );
                 child.setPosition(pos);
                 break;
         }

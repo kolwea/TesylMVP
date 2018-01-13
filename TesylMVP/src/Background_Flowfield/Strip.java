@@ -6,13 +6,9 @@
 package Background_Flowfield;
 
 import Tools.Vector;
-import javafx.beans.binding.Bindings;
-import javafx.geometry.Bounds;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
 
 /**
  *
@@ -39,8 +35,6 @@ public class Strip {
     protected void update() {
         updatePositions();
         body.getPoints().setAll(posOne.x, posOne.y, posTwo.x, posTwo.y, posThree.x, posThree.y);
-//        body.getPoints().addAll();
-
     }
     
     protected Polygon getBody(){
