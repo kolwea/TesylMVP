@@ -16,7 +16,7 @@ import javafx.scene.shape.Polygon;
 public class Cell {
     private final Color SHAPE_FILL = Color.YELLOW;
     private final Color SHAPE_STROKE = Color.BLUE;
-    private final double SHAPE_STROKE_WIDTH = 10.0;
+    private final double SHAPE_STROKE_WIDTH = 3.0;
     
     private Controller parent;
     private Point[] points;

@@ -20,11 +20,8 @@ import javafx.util.Duration;
  */
 public class Controller {
 
-    int 
-            MAX_MAP_VALUE = 20,
-            MIN_MAP_VALUE = -20;
-    
-    
+    int MAX_MAP_VALUE = 40,
+            MIN_MAP_VALUE = -40;
 
     private final OpenSimplexNoise noise = new OpenSimplexNoise();
     private ArrayList<Point> points;
@@ -42,18 +39,26 @@ public class Controller {
 
     private void initialize() {
         count = 0;
-        noiseMode = 2;
+        noiseMode = 5;
         setupTimeline();
     }
-    
-    private void setupTimeline(){
+
+    private void setupTimeline() {
         keyframe = new KeyFrame(Duration.millis(10), (ActionEvent event) -> {
-          update();  
-          count += 0.006;
+            update();
+            count += 0.006;
         });
         timeline = new Timeline(keyframe);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    protected ArrayList<Point> getPoints() {
+        return points;
+    }
+
+    protected ArrayList<Cell> getCells() {
+        return cells;
     }
 
     protected Vector getNoisePosition(Vector pos) {
@@ -91,18 +96,49 @@ public class Controller {
         }
         return done;
     }
-    
-    protected void addPoint(Vector origin){
-        if(points == null)
+
+    protected void addPoint(Vector origin) {
+        if (points == null) {
             points = new ArrayList();
-        Point hold = new Point(this,origin);
+        }
+        Point hold = new Point(this, origin);
         points.add(hold);
         parent.getRoot().getChildren().add(hold.getShape());
+        System.out.println(points.size());
     }
-    
-    protected void update(){
-        for(Point curr : points){
+
+    protected void update() {
+        for (Point curr : points) {
             curr.update();
+        }
+        if (cells != null) {
+            for (Cell curr : cells) {
+                curr.update();
+            }
+        }
+    }
+
+    protected void setupCells() {
+        int p = 0;
+        Point[][] array = new Point[parent.COLS][parent.ROWS];
+        for (int i = 0; i < parent.COLS; i++) {
+            for (int k = 0; k < parent.ROWS; k++) {
+                array[i][k] = points.get(p);
+                p++;
+            }
+        }
+        cells = new ArrayList<>();
+        for (int i = 0; i < parent.COLS - 1; i++) {
+            for (int k = 0; k < parent.ROWS - 1; k++) {
+                Point one = array[i][k];
+                Point two = array[i + 1][k];
+                Point three = array[i][k + 1];
+                Point four = array[i + 1][k + 1];
+                Cell top = new Cell(one, two, three);
+                Cell bot = new Cell(three, four, two);
+                cells.add(top);
+                cells.add(bot);
+            }
         }
     }
 }

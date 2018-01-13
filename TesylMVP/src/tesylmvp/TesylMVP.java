@@ -6,7 +6,6 @@
 package tesylmvp;
 
 import Background_Flowfieldv2.FlowField;
-import LaunchScene.LaunchModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

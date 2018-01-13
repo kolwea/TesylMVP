@@ -8,6 +8,7 @@ package Background_Flowfieldv2;
 import Tools.Vector;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 
 /**
@@ -15,44 +16,54 @@ import javafx.scene.layout.Pane;
  * @author Kolbe
  */
 public class FlowField {
-    private int ROW = 70, COLS = 50;
-    
+
+    final int ROWS = 20;
+    final int COLS = 10;
+
     private Pane root;
     private final Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
     private Controller controller;
-    
-    public FlowField(){
+
+    public FlowField() {
         initialize();
     }
-    
-    public Pane getRoot(){
+
+    public Pane getRoot() {
         return this.root;
     }
-    
-    private void initialize(){
+
+    private void initialize() {
         controller = new Controller(this);
         setupPane();
         setupPoints();
+        setupShapes();
     }
-    
-    private void setupPane(){
+
+    private void setupPane() {
         root = new Pane();
-        root.setMinSize(600,450);
+        root.setMinSize(600, 450);
         root.setPrefSize(600, 400);
         root.setMaxSize(window.width, window.height);
     }
-        
-    private void setupPoints(){
-        double xMult = window.getWidth()/ROW;
-        double yMult = window.getHeight()/COLS;
-        
-        for(int i = 0; i < COLS ; i++){
-            for(int k = 0; k < ROW; k++){
-                Vector pos = new Vector(xMult*i, yMult * k);
-                System.out.println(pos.x + " " + pos.y);
+
+    private void setupPoints() {
+        double xMult = (window.getWidth() + 50) / ROWS;
+        double yMult = (window.getHeight() + 50) / COLS;
+
+        for (int i = -1; i < COLS-1; i++) {
+            for (int k = -1; k < ROWS-1; k++) {
+                Vector pos = new Vector(xMult * i, yMult * k);
                 controller.addPoint(pos);
             }
         }
     }
-    
+
+    private void setupShapes() {
+        controller.setupCells();
+        ArrayList<Cell> cells = controller.getCells();
+        for(Cell curr : cells){
+            root.getChildren().add(curr.getShape());
+        }
+    }
+
 }
