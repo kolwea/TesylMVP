@@ -14,7 +14,7 @@ import javafx.scene.shape.Polygon;
  * @author Kolbe
  */
 public class Cell {
-    private final Color SHAPE_FILL = Color.YELLOW;
+    private final Color SHAPE_FILL = Color.web("#23CE6B",0.5);
     private final Color SHAPE_STROKE = Color.BLUE;
     private final double SHAPE_STROKE_WIDTH = 3.0;
     

@@ -22,6 +22,7 @@ public class Controller {
 
     int MAX_MAP_VALUE = 40,
             MIN_MAP_VALUE = -40;
+    double COUNT_INCREMENT = 0.006;
 
     private final OpenSimplexNoise noise = new OpenSimplexNoise();
     private ArrayList<Point> points;
@@ -46,7 +47,6 @@ public class Controller {
     private void setupTimeline() {
         keyframe = new KeyFrame(Duration.millis(10), (ActionEvent event) -> {
             update();
-            count += 0.006;
         });
         timeline = new Timeline(keyframe);
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -62,12 +62,14 @@ public class Controller {
     }
 
     protected Vector getNoisePosition(Vector pos) {
-        double noiseX = noise.eval(pos.x, count);
-        double noiseY = noise.eval(pos.y, count);
+//        double noiseX = noise.eval(pos.x, count);
+//        double noiseY = noise.eval(pos.y, count);
         double noiseB = noise.eval(pos.x, pos.y, count);
 
-        double valX = Tools.Functions.map(noiseX, -1, 1, MIN_MAP_VALUE, MAX_MAP_VALUE);
-        double valY = Tools.Functions.map(noiseY, -1, 1, MIN_MAP_VALUE, MAX_MAP_VALUE);
+//        double valX = Tools.Functions.map(noiseX, -1, 1, MIN_MAP_VALUE, MAX_MAP_VALUE);
+//        double valY = Tools.Functions.map(noiseY, -1, 1, MIN_MAP_VALUE, MAX_MAP_VALUE);
+        double valX = 0;
+        double valY = 0;
         double valB = Tools.Functions.map(noiseB, -1, 1, MIN_MAP_VALUE, MAX_MAP_VALUE);
 
         Vector done = null;
@@ -108,6 +110,7 @@ public class Controller {
     }
 
     protected void update() {
+        count += COUNT_INCREMENT;
         for (Point curr : points) {
             curr.update();
         }
